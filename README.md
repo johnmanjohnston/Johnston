@@ -33,7 +33,7 @@ npm install dotenv
 npm install discord.js
 npm install giphy-api --save
 ```
-Then, create a file called `.env` and store your Discord API key, and Giphy API key.
+Then, create a file called `.env` and store your Discord API key and Giphy API key as environment variables (this is why you need to install dotenv).
 ```
 BOT_TOKEN=<token>
 GIPHY_API_KEY=<key>
