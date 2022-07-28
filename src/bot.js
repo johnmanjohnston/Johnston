@@ -22,7 +22,7 @@ const client = new Discord.Client({
 });
 
 client.on("ready", () => {
-    console.log(`Dicsord bot running; client.user.tag: ${client.user.tag}`);
+    console.log(`Discord bot running; client.user.tag: ${client.user.tag}`);
     client.user.setActivity("Johnston", { type: "PLAYING" });
 });
 
@@ -54,8 +54,8 @@ The commands available for the bot are as follows:
 > ${BOT_COMMAND_PREFIX}purge \`<msgcount>\` — deletes the last <msgcount> messages, if the user has adequate permissions (alias: \`${BOT_COMMAND_PREFIX}massdelete\`)
 > ${BOT_COMMAND_PREFIX}poll \`<question>\` — creates a poll with the question and the users can vote with a tick, or a cross
 > ${BOT_COMMAND_PREFIX}gif \`<query>\` — displays a GIF (from GIPHY) based on the query
-> ${BOT_COMMAND_PREFIX}kick \`@<user>\` — kicks the user from the server **(IN DEVELOPMENT)**
-> ${BOT_COMMAND_PREFIX}ban \`@<user>\` — bans the user from the server (alias: \`${BOT_COMMAND_PREFIX}yeet\`) **(IN DEVELOPMENT)**
+> ${BOT_COMMAND_PREFIX}kick \`@<user>\` — kicks the user from the server
+> ${BOT_COMMAND_PREFIX}ban \`@<user>\` — bans the user from the server (alias: \`${BOT_COMMAND_PREFIX}yeet\`)
 The command prefix for all commands, is "${BOT_COMMAND_PREFIX}"`);}
 
         // Ping command
@@ -67,7 +67,7 @@ The command prefix for all commands, is "${BOT_COMMAND_PREFIX}"`);}
         if (command === "avatar") {
             const avatar = msg.author.displayAvatarURL();
             const embed = new Discord.MessageEmbed();
-            embed.setTitle("Avatar");
+            embed.setTitle("Avatar");   
             embed.setColor("#DEDEDE");
             embed.setThumbnail(avatar);
             embed.setImage(avatar);
@@ -194,31 +194,68 @@ The command prefix for all commands, is "${BOT_COMMAND_PREFIX}"`);}
         }
 
         // Kick command
-        if (command === "kick" || command === "ban") {
-            if (msg.member.permissions.has("MANAGE_MEMBERS")) {
-                msg.reply("You don't inherit the admin adequate privileges to kick/ban a user.")
+        if (command === "kick") {
+            if (msg.member.permissions.has("KICK_MEMBERS")) {
+                const user = msg.mentions.users.first();
+
+                if (!user) {
+                    msg.reply(`You need to mention someone to kick! Format: ${BOT_COMMAND_PREFIX}\`kick @<user>\``);
+                    return;
+                }
+
+                if (user.id === msg.author.id) {
+                    msg.reply("You cannot kick yourself.");
+                    return;
+                }
+
+                if (user.id === client.user.id) {
+                    msg.reply("You dare to kick me? You absolute weakling. I'd scotch you within a second if you tried.");
+                    return;
+                }
+
+                try {
+                    msg.guild.members.kick(user.id);
+                } catch {
+                    msg.reply(`Couldn't kick ${user}`);
+                    return;
+                }
+
+                msg.reply(`${msg.author} kicked ${user}.`);                
             } else {
-                const userToTakeAction = msg.mentions.users.first();
+                msg.reply("You don't inherit the adequate privileges to kick a user.")
+            }
+        }
 
-                if (!userToTakeAction) {
-                    const isBan = msg.content.includes(`${BOT_COMMAND_PREFIX}ban`);
-                    const command = "";
-                    
-                    if (isBan) command = "ban";
-                    else command = "kick";                                                                                     
+        // Ban command
+        if (command === "ban" || command === "yeet") {
+            if (msg.member.permissions.has("BAN_MEMBERS")) {
+                const user = msg.mentions.users.first();
 
-                    msg.reply(`You have to specify a user to ${command}; format: ${BOT_COMMAND_PREFIX}${command} \`@<user>\``)
+                if (!user) {
+                    msg.reply(`You need to mention someone to ban! Format: ${BOT_COMMAND_PREFIX}\`ban @<user>\``);
+                    return;
                 }
 
-                const reason = msg.content.replace(`${BOT_COMMAND_PREFIX}${command} @${userToTakeAction.username} `, "");
-
-                if (command === "ban") {
-                    msg.guild.member(userToTakeAction).ban(reason);
-                    msg.reply(`${userToTakeAction} has been banned.`);
-                } else {
-                    msg.guild.member(userToTakeAction).kick(reason);
-                    msg.reply(`${userToTakeAction} has been kicked.`);
+                if (user.id === msg.author.id) {
+                    msg.reply("You cannot ban yourself.");
+                    return;
                 }
+
+                if (user.id === client.user.id) {
+                    msg.reply("You dare to ban me? You absolute weakling. I'd scotch you within a second if you tried.");
+                    return;
+                }
+
+                try {
+                    msg.guild.members.ban(user.id);
+                } catch {
+                    msg.reply(`Couldn't ban ${user}`);
+                    return;
+                }
+
+                msg.reply(`${msg.author} banned ${user}.`);                
+            } else {
+                msg.reply("You don't inherit the adequate privileges to ban a user.")
             }
         }
     }
