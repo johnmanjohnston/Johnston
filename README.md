@@ -6,8 +6,6 @@ Johnston is a Discord bot, with a bunch of commands to make moderating your serv
 Johnston is a Discord bot that I programmed. I name it Johnston because I was too damn lazy to come up with a better name. Anyway, the bot has features to make managing your Discord server easier, and it also has commands to make your server more fun.
 To view the different commands, you can do `$help`.
 
-As of now, there are some commands that are still in development like the `$ban` and `$kick` command. 
-
 ### Abilities
 You can view the capabilities of the bot using `$help`. You of course, can make aditional changes to the bot to suit your needs if required. As of now, the bot can do the following commands:
 
@@ -22,8 +20,8 @@ $membercount — displays the number of members in the server
 $purge <msgcount> — deletes the last <msgcount> messages, if the user has adequate permissions (alias: $massdelete)
 $poll <question> — creates a poll with the question and the users can vote with a tick, or a cross
 $gif <query> — displays a GIF (from GIPHY) based on the query
-$kick @<user> — kicks the user from the server (IN DEVELOPMENT)
-$ban @<user> — bans the user from the server (alias: $yeet) (IN DEVELOPMENT)
+$kick @<user> — kicks the user from the server
+$ban @<user> — bans the user from the server (alias: $yeet)
 ```
 
 ### How to Install
