@@ -8,6 +8,13 @@ import Discord from "discord.js";
 const Giphy = require("giphy-api")(GIPHY_API_KEY);
 import fs from "fs";
 
+import { ping } from "./ping";
+
+const FUNCTION_MAP: { [key: string]: Function } = {
+    "ping": ping
+}
+
+
 const client = new Discord.Client({
     intents: [
         Discord.GatewayIntentBits.Guilds,
@@ -24,13 +31,20 @@ const client = new Discord.Client({
 
 client.on("ready", () => {
     console.log(`Discord bot running; client.user.tag: ${client.user!.tag}`);
-    client.user!.setActivity("Minecraft", { type: Discord.ActivityType.Playing });
+    client.user!.setActivity("your mom", { type: Discord.ActivityType.Playing });
 });
 
 client.on("messageCreate", async (msg) => {
     if (msg.author.bot) return;
 
-    msg.reply("Ethan John is very handsome and smart!")
+    if (msg.content.startsWith(BOT_COMMAND_PREFIX)) {
+        const args: string[] = msg.content.replace(BOT_COMMAND_PREFIX, "").split(" ");
+        const command: string = args[0];
+
+        var cmdFunction = FUNCTION_MAP[command];
+        if (cmdFunction != null)
+            cmdFunction(msg, args);
+    }
 });
 
 console.log("Attemping to login using bot access token");

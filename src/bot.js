@@ -18,6 +18,10 @@ const GIPHY_API_KEY = process.env.GIPHY_API_KEY;
 const BOT_COMMAND_PREFIX = "$";
 const discord_js_1 = __importDefault(require("discord.js"));
 const Giphy = require("giphy-api")(GIPHY_API_KEY);
+const ping_1 = require("./ping");
+const FUNCTION_MAP = {
+    "ping": ping_1.ping
+};
 const client = new discord_js_1.default.Client({
     intents: [
         discord_js_1.default.GatewayIntentBits.Guilds,
@@ -32,12 +36,18 @@ const client = new discord_js_1.default.Client({
 });
 client.on("ready", () => {
     console.log(`Discord bot running; client.user.tag: ${client.user.tag}`);
-    client.user.setActivity("Minecraft", { type: discord_js_1.default.ActivityType.Playing });
+    client.user.setActivity("your mom", { type: discord_js_1.default.ActivityType.Playing });
 });
 client.on("messageCreate", (msg) => __awaiter(void 0, void 0, void 0, function* () {
     if (msg.author.bot)
         return;
-    msg.reply("Ethan John is very handsome and smart!");
+    if (msg.content.startsWith(BOT_COMMAND_PREFIX)) {
+        const args = msg.content.replace(BOT_COMMAND_PREFIX, "").split(" ");
+        const command = args[0];
+        var cmdFunction = FUNCTION_MAP[command];
+        if (cmdFunction != null)
+            cmdFunction(msg, args);
+    }
 }));
 console.log("Attemping to login using bot access token");
 client.login(BOT_ACCESS_TOKEN);
