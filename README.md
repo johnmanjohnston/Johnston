@@ -1,6 +1,8 @@
 # Johnston
 
 ### Introduction
+NOTE: As Discord changed their API, a lot of the functions don't work anymore. I'm revamping the entire bot to work with the new API.
+
 Johnston is a Discord bot, with a bunch of commands to make moderating your server easier, and to make your server more fun
 
 Johnston is a Discord bot that I programmed. I name it Johnston because I was too damn lazy to come up with a better name. Anyway, the bot has features to make managing your Discord server easier, and it also has commands to make your server more fun.
