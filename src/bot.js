@@ -19,8 +19,10 @@ const BOT_COMMAND_PREFIX = "$";
 const discord_js_1 = __importDefault(require("discord.js"));
 const Giphy = require("giphy-api")(GIPHY_API_KEY);
 const ping_1 = require("./ping");
+const echo_1 = require("./echo");
 const FUNCTION_MAP = {
-    "ping": ping_1.ping
+    "ping": ping_1.ping,
+    "echo": echo_1.echo
 };
 const client = new discord_js_1.default.Client({
     intents: [
@@ -36,7 +38,7 @@ const client = new discord_js_1.default.Client({
 });
 client.on("ready", () => {
     console.log(`Discord bot running; client.user.tag: ${client.user.tag}`);
-    client.user.setActivity("your mom", { type: discord_js_1.default.ActivityType.Playing });
+    client.user.setActivity("Johnston", { type: discord_js_1.default.ActivityType.Playing });
 });
 client.on("messageCreate", (msg) => __awaiter(void 0, void 0, void 0, function* () {
     if (msg.author.bot)

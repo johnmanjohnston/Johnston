@@ -9,9 +9,11 @@ const Giphy = require("giphy-api")(GIPHY_API_KEY);
 import fs from "fs";
 
 import { ping } from "./ping";
+import { echo } from "./echo";
 
 const FUNCTION_MAP: { [key: string]: Function } = {
-    "ping": ping
+    "ping": ping,
+    "echo": echo
 }
 
 
@@ -31,7 +33,7 @@ const client = new Discord.Client({
 
 client.on("ready", () => {
     console.log(`Discord bot running; client.user.tag: ${client.user!.tag}`);
-    client.user!.setActivity("your mom", { type: Discord.ActivityType.Playing });
+    client.user!.setActivity("Johnston", { type: Discord.ActivityType.Playing });
 });
 
 client.on("messageCreate", async (msg) => {
