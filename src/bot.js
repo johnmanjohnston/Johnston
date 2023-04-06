@@ -13,17 +13,21 @@ const fs = require("fs");
 
 const client = new Discord.Client({
     intents: [
-        "GUILDS",
-        "DIRECT_MESSAGES",
-        "GUILD_MESSAGES"
+        Discord.GatewayIntentBits.Guilds,
+        Discord.GatewayIntentBits.GuildMessages,
+        Discord.GatewayIntentBits.DirectMessages,
+        Discord.GatewayIntentBits.MessageContent
     ],
     
-    partials: ["MESSAGE", "CHANNEL"] 
+    partials: [
+        Discord.Partials.Channel,
+        Discord.Partials.Message
+    ] 
 });
 
 client.on("ready", () => {
     console.log(`Discord bot running; client.user.tag: ${client.user.tag}`);
-    client.user.setActivity("Johnston", { type: "PLAYING" });
+    client.user.setActivity("Minecraft", { type: "PLAYING" });
 });
 
 
