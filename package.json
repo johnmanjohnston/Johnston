@@ -1,0 +1,23 @@
+{
+  "name": "johnston",
+  "version": "1.0.0",
+  "description": "Johnston is a Discord bot, with a bunch of commands to make moderating your server easier, and to make your server more fun",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnmanjohnston/Johnston.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johnmanjohnston/Johnston/issues"
+  },
+  "homepage": "https://github.com/johnmanjohnston/Johnston#readme",
+  "dependencies": {
+    "discord.js": "^14.9.0"
+  }
+}
