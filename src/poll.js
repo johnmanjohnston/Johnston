@@ -9,10 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.echo = void 0;
-function echo(msg, args) {
+exports.poll = void 0;
+function poll(msg, args) {
     return __awaiter(this, void 0, void 0, function* () {
-        msg.reply(msg.content.slice(5)); // 5 = length of "echo" + 1 (1 accounting for the space)
+        var query = msg.content.slice(5); // 5 = length of "poll" + 1 (1 accounting for the space)
+        var msgReply = yield msg.channel.send(query);
+        msgReply.react("⬆️");
+        msgReply.react("⬇️");
     });
 }
-exports.echo = echo;
+exports.poll = poll;

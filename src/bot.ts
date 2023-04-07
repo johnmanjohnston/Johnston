@@ -10,12 +10,15 @@ import fs from "fs";
 
 import { ping } from "./ping";
 import { echo } from "./echo";
+import { poll } from "./poll";
+import { joke } from "./joke";
 
 const FUNCTION_MAP: { [key: string]: Function } = {
     "ping": ping,
-    "echo": echo
+    "echo": echo,
+    "poll": poll,
+    "joke": joke,
 }
-
 
 const client = new Discord.Client({
     intents: [
@@ -45,7 +48,7 @@ client.on("messageCreate", async (msg) => {
 
         var cmdFunction = FUNCTION_MAP[command];
         if (cmdFunction != null)
-            cmdFunction(msg, args);
+            await cmdFunction(msg, args);
     }
 });
 

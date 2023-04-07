@@ -20,9 +20,15 @@ const discord_js_1 = __importDefault(require("discord.js"));
 const Giphy = require("giphy-api")(GIPHY_API_KEY);
 const ping_1 = require("./ping");
 const echo_1 = require("./echo");
+const poll_1 = require("./poll");
+const joke_1 = require("./joke");
+const gpt_1 = require("./gpt");
 const FUNCTION_MAP = {
     "ping": ping_1.ping,
-    "echo": echo_1.echo
+    "echo": echo_1.echo,
+    "poll": poll_1.poll,
+    "joke": joke_1.joke,
+    "gpt": gpt_1.gpt
 };
 const client = new discord_js_1.default.Client({
     intents: [
@@ -48,7 +54,7 @@ client.on("messageCreate", (msg) => __awaiter(void 0, void 0, void 0, function* 
         const command = args[0];
         var cmdFunction = FUNCTION_MAP[command];
         if (cmdFunction != null)
-            cmdFunction(msg, args);
+            yield cmdFunction(msg, args);
     }
 }));
 console.log("Attemping to login using bot access token");
